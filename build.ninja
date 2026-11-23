@@ -1,0 +1,30 @@
+# Ninja build script for the OneMatrix library
+#   ninja        - build build/matrix_test.exe
+#   ninja run    - build (if needed) and run it
+#   ninja clean  - delete the build directory
+
+cxx = clang++
+cxxflags = -Wall -Wextra -std=c++17 -fcolor-diagnostics -I./src
+
+rule cxx
+  command = $cxx $cxxflags -MMD -MF $out.d $in -o $out
+  depfile = $out.d
+  deps = gcc
+  description = CXX $out
+
+build build/matrix_test.exe: cxx src/main.cpp
+
+rule run_exe
+  command = cmd /c build\matrix_test.exe
+  pool = console
+  description = RUN build/matrix_test.exe
+
+build run: run_exe build/matrix_test.exe
+
+rule clean_dir
+  command = cmd /c if exist build rmdir /s /q build
+  description = CLEAN build/
+
+build clean: clean_dir
+
+default build/matrix_test.exe

@@ -18,7 +18,7 @@ To build the project:
 
 ```bash
 # On Windows
-build.bat
+.\build.ps1
 
 # Or directly with Ninja
 ninja
@@ -35,7 +35,7 @@ After building, you can run the tests with:
 ninja run
 
 # Or directly execute the binary
-build/matrix_test
+build\matrix_test.exe
 ```
 
 ### Project Structure
@@ -43,7 +43,7 @@ build/matrix_test
 - `src/matrix.h` - The header-only matrix library
 - `src/main.cpp` - Testing and demonstration code
 - `build.ninja` - Ninja build script
-- `build.bat` - Windows batch file for building
+- `build.ps1` - PowerShell script for building
 
 ### Cleaning
 

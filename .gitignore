@@ -3,5 +3,6 @@
 /CMakeUserPresets.json
 /info.txt
 CMakeFiles
-build.ninja
 CmakeCache.txt
+.ninja_log
+.ninja_deps
