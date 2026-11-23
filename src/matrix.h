@@ -1174,7 +1174,8 @@ class Matrix {
   }
 
   Matrix<T>& reshape(size_t rows, size_t cols) {
-    CHECK_SIZE(rows * cols);
+    if (rows * cols != nRows() * nCols())
+      throw incompatible_size();
     mRows = rows;
     mCols = cols;
     updateSize();
@@ -1361,7 +1362,6 @@ class Matrix {
     }
   }
 
-  template <typename T>
   void normalize_pivot_row(Matrix<T>& matrix, const T& pivotElement,
                            size_t processingRow,
                            size_t processingColumn) const {
@@ -1379,7 +1379,6 @@ class Matrix {
     }
   }
 
-  template <typename T>
   void eliminate_rows(Matrix<T>& matrix, const T& pivotElement,
                       size_t processingRow, size_t processingColumn,
                       bool reduced_form = false) const {
@@ -2038,7 +2037,7 @@ class Matrix {
         a_j = apply_previous_transforms(a_j, Up, Tp, j);
       }
 
-      auto [u_j, tau_j, a_j_updated] = Matrix<T>::Housev(a_j);
+      auto [u_j, tau_j, a_j_updated] = Housev(a_j);  // TODO: Housev not implemented yet
 
       for (size_t i = 0; i < u_j.nRows(); ++i) {
         Up(j + i, j) = u_j(i, 0);
